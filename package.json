@@ -1,0 +1,24 @@
+{
+  "name": "transfer-good",
+  "version": "1.0.0",
+  "main": "src/http/server.ts",
+  "engines": {
+    "node": ">=20.17.0",
+    "npm": ">=10.8.2",
+    "yarn": "please-use-npm",
+    "pnpm": "please-use-npm",
+    "bun": "please-use-npm"
+  },
+  "scripts": {
+    "dev": "tsx watch src/http/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
