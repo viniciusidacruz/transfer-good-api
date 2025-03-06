@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { UserProps } from "./user.types";
 
 export class User {
@@ -7,7 +8,7 @@ export class User {
 
   public static create(name: string, email: string, password: string): User {
     return new User({
-      id: crypto.randomUUID().toString(),
+      id: uuid(),
       email,
       name,
       password,
