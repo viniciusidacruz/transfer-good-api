@@ -1,3 +1,5 @@
+import { compare } from "bcryptjs";
+
 import { Usecase } from "@/usecases/usecase";
 import {
   AuthenticateInputDTO,
@@ -5,7 +7,6 @@ import {
 } from "./authenticate.types";
 import { UserGateway } from "@/domain/user/gateway/user.gateway";
 import { InvalidCredentialsError } from "./authentication.error";
-import { compare } from "bcryptjs";
 
 export class AuthenticateUsecase
   implements Usecase<AuthenticateInputDTO, AuthenticateOutputDTO>

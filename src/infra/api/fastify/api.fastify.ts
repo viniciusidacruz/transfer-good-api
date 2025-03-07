@@ -1,6 +1,8 @@
 import fastify from "fastify";
 import { ZodError } from "zod";
 import fastifyCors from "@fastify/cors";
+import { fastifyJwt } from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import {
@@ -11,10 +13,10 @@ import {
 } from "fastify-type-provider-zod";
 
 import { env } from "@/env";
-import { Api } from "../api";
 import { FastifyTypedInstance } from "@/infra/api/fastify/fastify-instance";
+
+import { Api } from "../api";
 import { Route } from "./routes/route";
-import { fastifyJwt } from "@fastify/jwt";
 
 export class ApiFastify implements Api {
   private app: FastifyTypedInstance;
@@ -27,6 +29,13 @@ export class ApiFastify implements Api {
 
     this.app.register(fastifyJwt, {
       secret: env.JWT_SECRET_KEY,
+      cookie: {
+        cookieName: "refreshToken",
+        signed: false,
+      },
+      sign: {
+        expiresIn: "10m",
+      },
     });
 
     this.app.setErrorHandler((error, request, reply) => {
@@ -51,6 +60,8 @@ export class ApiFastify implements Api {
     });
 
     this.app.register(fastifyCors, { origin: "*" });
+
+    this.app.register(fastifyCookie);
 
     this.app.register(fastifySwagger, {
       openapi: {

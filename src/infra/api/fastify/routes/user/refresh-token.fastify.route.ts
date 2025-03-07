@@ -11,7 +11,7 @@ import { InvalidCredentialsError } from "@/usecases/user/authenticate/authentica
 import { HttpMethod, Route } from "../route";
 import { AuthenticateResponseDTO } from "./authenticate.fastify.route.types";
 
-export class AuthenticateRoute implements Route {
+export class RefreshTokenRoute implements Route {
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
@@ -19,8 +19,8 @@ export class AuthenticateRoute implements Route {
   ) {}
 
   public static create(authenticateService: AuthenticateUsecase) {
-    return new AuthenticateRoute(
-      "/session",
+    return new RefreshTokenRoute(
+      "/refresh-token",
       HttpMethod.POST,
       authenticateService
     );
