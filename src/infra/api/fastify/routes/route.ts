@@ -11,4 +11,5 @@ export interface Route {
   getHandler(): (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
   getPath(): string;
   getMethod(): HttpMethod;
+  isPrivate?: boolean;
 }
