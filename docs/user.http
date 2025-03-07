@@ -7,3 +7,12 @@ Content-Type: application/json
     "email": "john.doe2@example.com",
     "password": "password123"
 }
+
+###
+POST http://localhost:4000/session
+Content-Type: application/json
+
+{
+    "email": "john.doe2@example.com",
+    "password": "password123"
+}

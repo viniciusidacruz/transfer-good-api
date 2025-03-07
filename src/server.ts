@@ -4,15 +4,19 @@ import { UserRepositoryPrisma } from "./infra/repositories/user/user.repository.
 import { CreateUserRoute } from "./infra/api/fastify/routes/user/create-user.fastify.route";
 import { ApiFastify } from "./infra/api/fastify/api.fastify";
 import { env } from "./env";
+import { AuthenticateRoute } from "./infra/api/fastify/routes/user/authenticate.fastify.route";
+import { AuthenticateUsecase } from "./usecases/user/authenticate/authenticate.usecase";
 
 function server() {
-  const repository = UserRepositoryPrisma.create(prisma);
+  const userRepository = UserRepositoryPrisma.create(prisma);
 
-  const createUserUseCase = CreateUserUseCase.create(repository);
+  const createUserUseCase = CreateUserUseCase.create(userRepository);
+  const authenticateUseCase = AuthenticateUsecase.create(userRepository);
 
   const createUserRoute = CreateUserRoute.create(createUserUseCase);
+  const authenticateRoute = AuthenticateRoute.create(authenticateUseCase);
 
-  const api = ApiFastify.create([createUserRoute]);
+  const api = ApiFastify.create([createUserRoute, authenticateRoute]);
 
   api.start(env.PORT);
 }

@@ -14,6 +14,7 @@ import { env } from "@/env";
 import { Api } from "../api";
 import { FastifyTypedInstance } from "@/infra/api/fastify/fastify-instance";
 import { Route } from "./routes/route";
+import { fastifyJwt } from "@fastify/jwt";
 
 export class ApiFastify implements Api {
   private app: FastifyTypedInstance;
@@ -23,6 +24,10 @@ export class ApiFastify implements Api {
 
     this.app.setValidatorCompiler(validatorCompiler);
     this.app.setSerializerCompiler(serializerCompiler);
+
+    this.app.register(fastifyJwt, {
+      secret: env.JWT_SECRET_KEY,
+    });
 
     this.app.setErrorHandler((error, request, reply) => {
       if (error instanceof ZodError) {
